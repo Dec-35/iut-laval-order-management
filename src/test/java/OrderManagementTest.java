@@ -36,6 +36,18 @@ public class OrderManagementTest {
     }
 
     // TODO: Implement tests for ShoppingCart
+    @Test
+    void testCart() throws OutOfStockException {
+        Product product = new Product("product", 10.0, 1);
+        ShoppingCart cart = new ShoppingCart();
+        cart.addProduct(product);
+        assertEquals(1, cart.getItemCount());
+        assertEquals(10.0, cart.getTotalPrice());
+        assertEquals(0, product.getStockQuantity());
+        cart.removeProduct(product);
+        assertEquals(0, cart.getItemCount());
+        assertEquals(1, product.getStockQuantity());
+    }
 
     // TODO: Implement tests for Invoice
 
