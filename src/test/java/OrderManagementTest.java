@@ -36,6 +36,9 @@ public class OrderManagementTest {
         assertEquals("product", product.getName());
         assertEquals(10.0, product.getPrice());
         assertEquals(1, product.getStockQuantity());
+
+        Product product2 = new Product("product2", 20.0, 0);
+        product2.decrementStock();
     }
 
     // TODO: Implement tests for ShoppingCart
@@ -48,8 +51,11 @@ public class OrderManagementTest {
         assertEquals(10.0, cart.getTotalPrice());
         assertEquals(0, product.getStockQuantity());
         cart.removeProduct(product);
+
         assertEquals(0, cart.getItemCount());
         assertEquals(1, product.getStockQuantity());
+
+        cart.removeProduct(product); // Ne fait rien
 
         cart.addProduct(product);
 
