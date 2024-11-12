@@ -118,4 +118,11 @@ public class OrderManagementTest {
         assertEquals(cart, order.getShoppingCart());
     }
 
+    @Test
+    void testOrderWithInvalidDiscount() throws OutOfStockException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        assertThrows(InvalidDiscountCodeException.class, () -> order.applyDiscount("PROMO30"));
+    }
+
 }
