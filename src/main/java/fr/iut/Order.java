@@ -20,14 +20,14 @@ public class Order {
         double subtotal = shoppingCart.getTotalPrice();
         totalPrice = subtotal + deliveryFee;
         if (discount > 0) {
-            totalPrice = (totalPrice + deliveryFee) * (1 - discount);
+            totalPrice = totalPrice * (1 - discount); //Readded delivery fee
         }
     }
 
     public void applyDiscount(String discountCode) throws InvalidDiscountCodeException {
         switch (discountCode) {
             case "PROMO10":
-                this.discount = 0.15;
+                this.discount = 0.10; // 15% -> 10% discount
                 break;
             case "PROMO20":
                 this.discount = 0.20;

@@ -86,4 +86,36 @@ public class OrderManagementTest {
     // TODO: Implement tests for Invoice
 
     // TODO: Implement tests for Order
+    @Test
+    void testOrder() throws OutOfStockException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        assertEquals(15.0, order.getTotalPrice());
+        assertEquals(5.0, order.getDeliveryFee());
+        assertEquals(0.0, order.getDiscount());
+        assertEquals(cart, order.getShoppingCart());
+    }
+
+    @Test
+    void testOrderWithTenDiscount() throws OutOfStockException, InvalidDiscountCodeException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        order.applyDiscount("PROMO10");
+        assertEquals(13.5, order.getTotalPrice());
+        assertEquals(5.0, order.getDeliveryFee());
+        assertEquals(0.10, order.getDiscount());
+        assertEquals(cart, order.getShoppingCart());
+    }
+
+    @Test
+    void testOrderWithTwentyDiscount() throws OutOfStockException, InvalidDiscountCodeException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        order.applyDiscount("PROMO20");
+        assertEquals(12.0, order.getTotalPrice());
+        assertEquals(5.0, order.getDeliveryFee());
+        assertEquals(0.20, order.getDiscount());
+        assertEquals(cart, order.getShoppingCart());
+    }
+
 }
