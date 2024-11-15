@@ -39,8 +39,8 @@ public class Invoice {
             order.getDeliveryFee()));
         
         if (order.getDiscount() > 0) {
-            invoice.append(String.format("Remise: %.2f%%\n", 
-                order.getDiscount()));
+            invoice.append(String.format("Remise: %.2f%%\n",
+                order.getDiscount()*100)); //Added conversion to percentage
         }
         
         invoice.append(String.format("\nTotal: %.2f €\n", 

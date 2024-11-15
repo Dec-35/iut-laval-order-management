@@ -1,4 +1,6 @@
 import fr.iut.Product;
+import fr.iut.exceptions.InvalidPriceException;
+import fr.iut.exceptions.InvalidStockQuantityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +42,16 @@ public class OrderManagementTest {
         assertEquals(0, product.getStockQuantity());
         product.incrementStock();
         assertEquals(1, product.getStockQuantity());
+    }
+
+    @Test
+    void testProductPrice() {
+        assertThrows(InvalidPriceException.class, () -> new Product("product", -1.0, 1));
+    }
+
+    @Test
+    void testProductStockQuantity() {
+        assertThrows(InvalidStockQuantityException.class, () -> new Product("product", 10.0, -1));
     }
 
     // Tests for ShoppingCart
@@ -84,6 +96,32 @@ public class OrderManagementTest {
     }
 
     // TODO: Implement tests for Invoice
+    @Test
+    void testInvoice() throws OutOfStockException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        Invoice invoice = new Invoice(order);
+    }
+
+    @Test
+    void testGenerateInvoice() throws OutOfStockException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        Invoice invoice = new Invoice(order);
+        String expected = "=== FACTURE ===\n\nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\n\nTotal: 15,00 €\n";
+        assertEquals(expected, invoice.generateInvoice());
+    }
+
+    @Test
+    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        order.applyDiscount("PROMO10");
+        Invoice invoice = new Invoice(order);
+        String expected = "=== FACTURE ===\n\nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\nRemise: 10,00%\n\nTotal: 13,50 €\n";
+        assertEquals(expected, invoice.generateInvoice());
+    }
+
 
     // TODO: Implement tests for Order
     @Test
