@@ -38,9 +38,13 @@ The project follows an object-oriented design with the following key components:
 
 ### 4. Invoice generation
 - Detailed item listing
+- Client display
 - Price breakdown
 - Discount display
 - Final total calculation
+
+### 5. User fidelity points
+- Client fidelity points tracking
 
 ## Technical details
 
@@ -111,3 +115,7 @@ order.applyDiscount("PROMO10");
 Invoice invoice = new Invoice(order);
 System.out.println(invoice.generateInvoice());
 ```
+
+## Tests
+
+100% code coverage and branch coverage across 5 classes.
