@@ -92,28 +92,28 @@ public class OrderManagementTest {
 
     // TODO: Implement tests for Invoice
     @Test
-    void testInvoice() throws OutOfStockException, EmptyShoppingCartException, EmptyOrderException {
+    void testInvoice() throws OutOfStockException, EmptyOrderException {
         cart.addProduct(product);
         Order order = new Order(cart, user);
         Invoice invoice = new Invoice(order);
     }
 
     @Test
-    void testGenerateInvoice() throws OutOfStockException, EmptyShoppingCartException, EmptyOrderException {
+    void testGenerateInvoice() throws OutOfStockException, EmptyOrderException {
         cart.addProduct(product);
         Order order = new Order(cart, user);
         Invoice invoice = new Invoice(order);
-        String expected = "=== FACTURE ===\n\nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\n\nTotal: 15,00 €\n";
+        String expected = "=== FACTURE ===\n\nClient: John Doe (100 points de fidélité) \nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\n\nTotal: 15,00 €\n";
         assertEquals(expected, invoice.generateInvoice());
     }
 
     @Test
-    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException, EmptyShoppingCartException, EmptyOrderException {
+    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException, EmptyOrderException {
         cart.addProduct(product);
         Order order = new Order(cart, user);
         order.applyDiscount("PROMO10");
         Invoice invoice = new Invoice(order);
-        String expected = "=== FACTURE ===\n\nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\nRemise: 10,00%\n\nTotal: 13,50 €\n";
+        String expected = "=== FACTURE ===\n\nClient: John Doe (100 points de fidélité) \nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\nRemise: 10,00%\n\nTotal: 13,50 €\n";
         assertEquals(expected, invoice.generateInvoice());
     }
 
@@ -159,8 +159,12 @@ public class OrderManagementTest {
     }
 
     @Test
-    void testConstants() {
-        assertEquals(100, Constants.FIDELITY_POINTS_PER_TEN_EUROS);
+    void testInvoiceWithEmptyOrder() {
+        while (cart.getItemCount() != 0){
+            cart.removeProduct(product);
+        }
+        Order order = new Order(cart, user);
+        assertThrows(EmptyOrderException.class, () -> new Invoice(order));
     }
 
 }
