@@ -10,6 +10,8 @@ public class Invoice {
     public String generateInvoice() {
         StringBuilder invoice = new StringBuilder();
         invoice.append("=== FACTURE ===\n\n");
+        User user = order.getUser();
+        invoice.append(String.format("Client: %s \n", user.toString()));
         invoice.append("Articles:\n");
         
         for (Product product : order.getShoppingCart().getProductList()) {
