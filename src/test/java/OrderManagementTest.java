@@ -158,4 +158,9 @@ public class OrderManagementTest {
         assertThrows(InvalidDiscountCodeException.class, () -> order.applyDiscount("PROMO30"));
     }
 
+    @Test
+    void testConstants() {
+        assertEquals(100, Constants.FIDELITY_POINTS_PER_TEN_EUROS);
+    }
+
 }
