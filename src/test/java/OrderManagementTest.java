@@ -1,4 +1,6 @@
 import fr.iut.Product;
+import fr.iut.exceptions.InvalidPriceException;
+import fr.iut.exceptions.InvalidStockQuantityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +42,16 @@ public class OrderManagementTest {
         assertEquals(0, product.getStockQuantity());
         product.incrementStock();
         assertEquals(1, product.getStockQuantity());
+    }
+
+    @Test
+    void testProductPrice() {
+        assertThrows(InvalidPriceException.class, () -> new Product("product", -1.0, 1));
+    }
+
+    @Test
+    void testProductStockQuantity() {
+        assertThrows(InvalidStockQuantityException.class, () -> new Product("product", 10.0, -1));
     }
 
     // Tests for ShoppingCart
