@@ -1,9 +1,14 @@
 import fr.iut.*;
+import fr.iut.exceptions.InvalidPriceException;
+import fr.iut.exceptions.InvalidStockQuantityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fr.iut.exceptions.InvalidDiscountCodeException;
 import fr.iut.exceptions.OutOfStockException;
+import fr.iut.Invoice;
+import fr.iut.Order;
+import fr.iut.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +44,16 @@ public class OrderManagementTest {
         assertEquals(0, product.getStockQuantity());
         product.incrementStock();
         assertEquals(1, product.getStockQuantity());
+    }
+
+    @Test
+    void testProductPrice() {
+        assertThrows(InvalidPriceException.class, () -> new Product("product", -1.0, 1));
+    }
+
+    @Test
+    void testProductStockQuantity() {
+        assertThrows(InvalidStockQuantityException.class, () -> new Product("product", 10.0, -1));
     }
 
     // Tests for ShoppingCart
