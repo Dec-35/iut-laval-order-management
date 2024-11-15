@@ -1,11 +1,8 @@
 import fr.iut.*;
-import fr.iut.exceptions.InvalidPriceException;
-import fr.iut.exceptions.InvalidStockQuantityException;
+import fr.iut.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.iut.exceptions.InvalidDiscountCodeException;
-import fr.iut.exceptions.OutOfStockException;
 import fr.iut.Invoice;
 import fr.iut.Order;
 import fr.iut.ShoppingCart;
@@ -99,14 +96,14 @@ public class OrderManagementTest {
 
     // TODO: Implement tests for Invoice
     @Test
-    void testInvoice() throws OutOfStockException {
+    void testInvoice() throws OutOfStockException, EmptyShoppingCartException, EmptyOrderException, NegativeOrderPrice {
         cart.addProduct(product);
         Order order = new Order(cart, user);
         Invoice invoice = new Invoice(order);
     }
 
     @Test
-    void testGenerateInvoice() throws OutOfStockException {
+    void testGenerateInvoice() throws OutOfStockException, EmptyShoppingCartException, EmptyOrderException, NegativeOrderPrice {
         cart.addProduct(product);
         Order order = new Order(cart, user);
         Invoice invoice = new Invoice(order);
@@ -115,7 +112,7 @@ public class OrderManagementTest {
     }
 
     @Test
-    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException {
+    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException, EmptyShoppingCartException, EmptyOrderException, NegativeOrderPrice {
         cart.addProduct(product);
         Order order = new Order(cart, user);
         order.applyDiscount("PROMO10");
