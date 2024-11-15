@@ -84,6 +84,32 @@ public class OrderManagementTest {
     }
 
     // TODO: Implement tests for Invoice
+    @Test
+    void testInvoice() throws OutOfStockException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        Invoice invoice = new Invoice(order);
+    }
+
+    @Test
+    void testGenerateInvoice() throws OutOfStockException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        Invoice invoice = new Invoice(order);
+        String expected = "=== FACTURE ===\n\nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\n\nTotal: 15,00 €\n";
+        assertEquals(expected, invoice.generateInvoice());
+    }
+
+    @Test
+    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException {
+        cart.addProduct(product);
+        Order order = new Order(cart);
+        order.applyDiscount("PROMO10");
+        Invoice invoice = new Invoice(order);
+        String expected = "=== FACTURE ===\n\nArticles:\n- product: 10,00 €\n\nSous-total: 10,00 €\nFrais de livraison: 5,00 €\nRemise: 10,00%\n\nTotal: 13,50 €\n";
+        assertEquals(expected, invoice.generateInvoice());
+    }
+
 
     // TODO: Implement tests for Order
     @Test
