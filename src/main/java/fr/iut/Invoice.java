@@ -2,19 +2,14 @@ package fr.iut;
 
 import fr.iut.exceptions.EmptyOrderException;
 import fr.iut.exceptions.EmptyShoppingCartException;
-import fr.iut.exceptions.NegativeOrderPrice;
 
 public class Invoice {
     private final Order order;
 
-    public Invoice(Order order) throws EmptyOrderException, NegativeOrderPrice, EmptyShoppingCartException {
+    public Invoice(Order order) throws EmptyOrderException, EmptyShoppingCartException {
         if (order == null)
         {
             throw new EmptyOrderException();
-        }
-        if (order.getTotalPrice() < 0)
-        {
-            throw new NegativeOrderPrice();
         }
         if (order.getShoppingCart() == null)
         {
