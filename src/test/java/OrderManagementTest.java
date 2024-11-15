@@ -93,9 +93,14 @@ public class OrderManagementTest {
     // TODO: Implement tests for Invoice
     @Test
     void testInvoice() throws OutOfStockException, EmptyOrderException {
+        assertThrows(EmptyOrderException.class, () -> new Invoice(new Order(cart, user)));
+
         cart.addProduct(product);
         Order order = new Order(cart, user);
         Invoice invoice = new Invoice(order);
+
+        assertNotNull(invoice, "Invoice should be created successfully for a valid order.");
+
     }
 
     @Test
