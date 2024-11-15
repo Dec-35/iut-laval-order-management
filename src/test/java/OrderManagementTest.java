@@ -161,7 +161,7 @@ public class OrderManagementTest {
     }
 
     @Test
-    void testInvoiceWithEmptyShoppingCart() throws EmptyShoppingCartException {
+    void testInvoiceWithEmptyShoppingCart() {
         while (cart.getItemCount() != 0){
             cart.removeProduct(product);
         }
@@ -170,7 +170,7 @@ public class OrderManagementTest {
     }
 
     @Test
-    void testInvoiceWithEmptyOrder() throws EmptyOrderException {
+    void testInvoiceWithEmptyOrder() {
         ShoppingCart emptyShoppingCart = null;
         Order order = new Order(emptyShoppingCart);
         assertThrows(EmptyShoppingCartException.class, () -> new Invoice(order));
