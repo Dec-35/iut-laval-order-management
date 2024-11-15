@@ -79,6 +79,13 @@ public class OrderManagementTest {
     }
 
     @Test
+    void testRemoveProductFromCartWithEmptyCart() {
+        cart.removeProduct(product);
+        assertEquals(0, cart.getItemCount());
+        assertEquals(1, product.getStockQuantity());
+    }
+
+    @Test
     void testCartProducts() throws OutOfStockException {
         cart.addProduct(product);
 
