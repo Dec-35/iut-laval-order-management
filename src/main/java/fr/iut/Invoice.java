@@ -1,19 +1,14 @@
 package fr.iut;
 
 import fr.iut.exceptions.EmptyOrderException;
-import fr.iut.exceptions.EmptyShoppingCartException;
 
 public class Invoice {
     private final Order order;
 
-    public Invoice(Order order) throws EmptyOrderException, EmptyShoppingCartException {
-        if (order == null)
+    public Invoice(Order order) throws EmptyOrderException {
+        if (order.getShoppingCart().getItemCount() == 0)
         {
-            throw new EmptyOrderException();
-        }
-        if (order.getShoppingCart() == null)
-        {
-            throw new EmptyShoppingCartException();
+            throw new EmptyOrderException("Votre commande est vide");
         }
         this.order = order;
     }
