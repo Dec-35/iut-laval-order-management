@@ -167,4 +167,9 @@ public class OrderManagementTest {
         assertThrows(EmptyOrderException.class, () -> new Invoice(order));
     }
 
+    @Test
+    void testConstants() {
+        assertEquals(100, Constants.FIDELITY_POINTS_PER_TEN_EUROS);
+    }
+
 }
