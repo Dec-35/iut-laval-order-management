@@ -1,6 +1,5 @@
 package fr.iut;
 
-import fr.iut.exceptions.Constants;
 import fr.iut.exceptions.InvalidDiscountCodeException;
 
 public class Order {

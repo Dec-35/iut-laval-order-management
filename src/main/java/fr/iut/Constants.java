@@ -1,5 +1,5 @@
-package fr.iut.exceptions;
+package fr.iut;
 
-public class Constants {
+public final class Constants {
     public static final int FIDELITY_POINTS_PER_TEN_EUROS = 100;
 }

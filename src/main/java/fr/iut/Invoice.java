@@ -2,6 +2,8 @@ package fr.iut;
 
 import fr.iut.exceptions.EmptyOrderException;
 
+import java.util.Locale;
+
 public class Invoice {
     private final Order order;
 
@@ -11,6 +13,7 @@ public class Invoice {
             throw new EmptyOrderException("Votre commande est vide");
         }
         this.order = order;
+        Locale.setDefault(Locale.FRANCE);
     }
 
     public String generateInvoice() {
