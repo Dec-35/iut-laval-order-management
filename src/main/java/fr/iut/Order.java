@@ -1,5 +1,6 @@
 package fr.iut;
 
+import fr.iut.exceptions.Constants;
 import fr.iut.exceptions.InvalidDiscountCodeException;
 
 public class Order {
@@ -7,12 +8,15 @@ public class Order {
     private double totalPrice;
     private double discount;
     private double deliveryFee;
+    private User user;
     private static final double BASE_DELIVERY_FEE = 5.0;
 
-    public Order(ShoppingCart shoppingCart) {
+    public Order(ShoppingCart shoppingCart, User user) {
         this.shoppingCart = shoppingCart;
         this.discount = 0.0;
         this.deliveryFee = BASE_DELIVERY_FEE * shoppingCart.getItemCount();
+        user.addFidelityPoints(Constants.FIDELITY_POINTS_PER_TEN_EUROS * (int) shoppingCart.getTotalPrice() / 10);
+        this.user = user;
         calculateTotal();
     }
 
@@ -52,5 +56,9 @@ public class Order {
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

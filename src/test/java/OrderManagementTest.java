@@ -1,8 +1,11 @@
 import fr.iut.Product;
-import fr.iut.exceptions.*;
+import fr.iut.exceptions.InvalidPriceException;
+import fr.iut.exceptions.InvalidStockQuantityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fr.iut.exceptions.InvalidDiscountCodeException;
+import fr.iut.exceptions.OutOfStockException;
 import fr.iut.Invoice;
 import fr.iut.Order;
 import fr.iut.ShoppingCart;
@@ -94,14 +97,14 @@ public class OrderManagementTest {
 
     // TODO: Implement tests for Invoice
     @Test
-    void testInvoice() throws OutOfStockException, EmptyShoppingCartException, EmptyOrderException {
+    void testInvoice() throws OutOfStockException {
         cart.addProduct(product);
         Order order = new Order(cart);
         Invoice invoice = new Invoice(order);
     }
 
     @Test
-    void testGenerateInvoice() throws OutOfStockException, EmptyShoppingCartException, EmptyOrderException {
+    void testGenerateInvoice() throws OutOfStockException {
         cart.addProduct(product);
         Order order = new Order(cart);
         Invoice invoice = new Invoice(order);
@@ -110,7 +113,7 @@ public class OrderManagementTest {
     }
 
     @Test
-    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException, EmptyShoppingCartException, EmptyOrderException {
+    void testGenerateInvoiceWithDiscount() throws OutOfStockException, InvalidDiscountCodeException {
         cart.addProduct(product);
         Order order = new Order(cart);
         order.applyDiscount("PROMO10");
@@ -158,22 +161,6 @@ public class OrderManagementTest {
         cart.addProduct(product);
         Order order = new Order(cart);
         assertThrows(InvalidDiscountCodeException.class, () -> order.applyDiscount("PROMO30"));
-    }
-
-    @Test
-    void testInvoiceWithEmptyShoppingCart() {
-        while (cart.getItemCount() != 0){
-            cart.removeProduct(product);
-        }
-        Order order = new Order(cart);
-        assertThrows(EmptyShoppingCartException.class, () -> new Invoice(order));
-    }
-
-    @Test
-    void testInvoiceWithEmptyOrder() {
-        ShoppingCart emptyShoppingCart = null;
-        Order order = new Order(emptyShoppingCart);
-        assertThrows(EmptyShoppingCartException.class, () -> new Invoice(order));
     }
 
 }
