@@ -1,5 +1,7 @@
 # Order Management
 
+**Membres :** Mériadec Legal, Arkan Catalon et Eloïse Prouteau Queffelec
+
 ## Overview
 This is a Java-based order management system that simulates an e-commerce shopping experience. The system handles product management, shopping cart operations, order processing, and invoice generation with features like discount codes and delivery fee calculations.
 
